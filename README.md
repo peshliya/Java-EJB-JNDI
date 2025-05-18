@@ -1,68 +1,69 @@
+# 💼 Java-EJB-JNDI Example Project
 
-This repository demonstrates a simple multi-module project using Enterprise Java Beans (EJB) and Java Naming and Directory Interface (JNDI). It includes a server-side EJB module and two standalone client applications to showcase remote method invocation and shared JNDI context usage.
+A simple, educational example of using **Enterprise JavaBeans (EJB)** and **Java Naming and Directory Interface (JNDI)** with **Jakarta EE** and **GlassFish**. This project demonstrates how multiple standalone clients can interact with a shared EJB and access a common JNDI registry.
 
-🧩 Project Modules
-1. EE-WebApp/ — EJB Module (Server)
-This is the main EJB application deployed to a Jakarta EE-compatible server (e.g., GlassFish).
+---
 
-Purpose: Hosts a remote EJB that provides business logic to clients.
-
-Technologies: Jakarta EE 10, EJB, JNDI
-
-Module Type: EJB module (.jar)
-
-Exposes: UserDetails interface (marked with @Remote)
-
-Implements: UserDetailsBean
-
-Deployment Target: GlassFish 7.x (remote)
-
-2. EE-Client-App/ — Standalone Java Client #1
-A Java SE application that acts as a remote client to the EJB deployed on GlassFish.
-
-Purpose: Connects to the UserDetailsBean via JNDI and invokes remote methods.
-
-Technologies: Java 11, JNDI, GlassFish Embedded
-
-Main Actions:
-
-Performs JNDI lookup of UserDetails
-
-Prints the retrieved user's name
-
-Binds a string "AppName" to the JNDI context (for sharing between clients)
-
-3. EE-Client-App2/ — Standalone Java Client #2
-Another client to demonstrate concurrent access and context sharing via JNDI.
-
-Purpose: Retrieves shared data bound by the first client.
-
-Technologies: Java 11, JNDI
-
-Main Actions:
-
-Looks up "AppName" in the JNDI context
-
-Prints the shared application name string
-
-⚙️ Technologies Used
-Java 11
-
-Jakarta EE 10
-
-Enterprise Java Beans (EJB)
-
-Java Naming and Directory Interface (JNDI)
-
-GlassFish 7.0.21 (Remote & Embedded)
-
-Apache Maven
-
-🗂 Repository Structure
-graphql
-Copy
-Edit
+## 📁 Project Structure
 Java-EJB-JNDI/
-├── EE-WebApp/          # Remote EJB module exposing UserDetailsBean
-├── EE-Client-App/      # First standalone client (binds AppName)
-└── EE-Client-App2/     # Second standalone client (retrieves AppName)
+├── EE-WebApp/ # EJB module (remote business logic)
+├── EE-Client-App/ # Client #1 - performs remote EJB call and binds data
+└── EE-Client-App2/ # Client #2 - retrieves shared data from JNDI
+
+
+---
+
+## 🔧 Technologies Used
+
+- ☕ Java 11  
+- 🌐 Jakarta EE 10  
+- 📦 EJB (Enterprise Java Beans)  
+- 🧭 JNDI (Java Naming and Directory Interface)  
+- 🐬 GlassFish 7.0.21 (remote + embedded)  
+- 🛠 Maven  
+
+---
+
+## 🧩 Module Breakdown
+
+### 📦 `EE-WebApp/` — EJB Module (Server-side)
+
+- 📌 **Purpose**: Hosts remote business logic via a remote interface.
+- 🧪 **Implements**: `UserDetailsBean` (an EJB)
+- 🔌 **Exposes**: `UserDetails` interface using `@Remote`
+- 🚀 **Deployment**: Build and deploy `.jar` to GlassFish
+
+---
+
+### 💻 `EE-Client-App/` — Standalone Java Client #1
+
+- 🔍 **Performs**: JNDI lookup of the `UserDetails` EJB
+- 🧑 **Retrieves**: User's name from the remote bean
+- 🔗 **Binds**: `"AppName"` string to JNDI for other clients to use
+
+---
+
+### 💻 `EE-Client-App2/` — Standalone Java Client #2
+
+- 🔍 **Looks up**: `"AppName"` from the JNDI context
+- 📤 **Reads and Prints**: Shared string set by Client #1
+
+---
+
+## 🚀 How to Run the Project
+
+### 📌 Prerequisites
+
+- GlassFish 7 installed and configured
+- GlassFish server is **running**
+- Java 11 and Maven installed
+
+---
+
+### 🧪 Step 1: Deploy EJB Module to GlassFish
+
+```bash
+cd EE-WebApp/
+mvn clean install
+# Deploy via GlassFish Admin Console or:
+asadmin deploy target/EE-WebApp.jar
