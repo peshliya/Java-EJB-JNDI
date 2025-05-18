@@ -7,7 +7,9 @@ A simple, educational example of using **Enterprise JavaBeans (EJB)** and **Java
 ## 📁 Project Structure
 Java-EJB-JNDI/
 ├── EE-WebApp/ # EJB module (remote business logic)
+
 ├── EE-Client-App/ # Client #1 - performs remote EJB call and binds data
+
 └── EE-Client-App2/ # Client #2 - retrieves shared data from JNDI
 
 
@@ -48,22 +50,6 @@ Java-EJB-JNDI/
 - 🔍 **Looks up**: `"AppName"` from the JNDI context
 - 📤 **Reads and Prints**: Shared string set by Client #1
 
----
 
-## 🚀 How to Run the Project
 
-### 📌 Prerequisites
 
-- GlassFish 7 installed and configured
-- GlassFish server is **running**
-- Java 11 and Maven installed
-
----
-
-### 🧪 Step 1: Deploy EJB Module to GlassFish
-
-```bash
-cd EE-WebApp/
-mvn clean install
-# Deploy via GlassFish Admin Console or:
-asadmin deploy target/EE-WebApp.jar
